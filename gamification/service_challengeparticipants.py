@@ -24,8 +24,6 @@ def update_mongo_participants(users_info, total_participants):
             checkins=user_info['checkins'],
             numberOfParticipant=total_participants
         )
-
-        # Optional: Printing for debugging or logging purposes
         print(
             f"Updated user {user_info['user_id']} - "
             f"challengeID: {user_info['challengeID']}, "
