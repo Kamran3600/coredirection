@@ -159,7 +159,7 @@ RQ_QUEUES = {
         'DB': '0',
         'ASYNC': True,
         'DEFAULT_TIMEOUT': 36000,
-        'RESULT_TTL': 600,
+        'RESULT_TTL': 6000,
     },
     'gamification_challenges2': {
         'HOST': 'localhost',
@@ -167,7 +167,7 @@ RQ_QUEUES = {
         'DB': '0',
         'ASYNC': True,
         'DEFAULT_TIMEOUT': 36000,
-        'RESULT_TTL': 600,
+        'RESULT_TTL': 6000,
     },
     'gamification_challenges3': {
         'HOST': 'localhost',
@@ -175,7 +175,7 @@ RQ_QUEUES = {
         'DB': '0',
         'ASYNC': True,
         'DEFAULT_TIMEOUT': 36000,
-        'RESULT_TTL': 600
+        'RESULT_TTL': 6000
     },
     'gamification_challenges4': {
         'HOST': 'localhost',
@@ -183,7 +183,7 @@ RQ_QUEUES = {
         'DB': '0',
         'ASYNC': True,
         'DEFAULT_TIMEOUT': 36000,
-        'RESULT_TTL': 600
+        'RESULT_TTL': 6000
     },
     'gamification_challenges5': {
         'HOST': 'localhost',
@@ -191,7 +191,7 @@ RQ_QUEUES = {
         'DB': '0',
         'ASYNC': True,
         'DEFAULT_TIMEOUT': 36000,
-        'RESULT_TTL': 600
+        'RESULT_TTL': 6000
     },
     # Add more queues if needed
 }

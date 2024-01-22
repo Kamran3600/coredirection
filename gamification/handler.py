@@ -7,12 +7,12 @@ from .service_challengeparticipants import update_mongo_participants
 
 @job
 def process_relevant_challenges(challenge_ids):
+    current_time = timezone.now()
     gamif_challenges = GamificationChallenge.objects.filter(
-        id__in=challenge_ids, end_date__gt=timezone.now()
+        id__in=challenge_ids, end_date__gt=current_time
     )
 
     users_info = []
-    total_steps_all_users = 0
 
     for challenge in gamif_challenges:
         user_gamification_entries = UserGamificationChallenge.objects.filter(
@@ -20,6 +20,7 @@ def process_relevant_challenges(challenge_ids):
         )
         for entry in user_gamification_entries:
             user = entry.user
+
             aggregated_data = GamificationCorePointRecord.objects.filter(
                 user=user
             ).aggregate(
@@ -38,11 +39,10 @@ def process_relevant_challenges(challenge_ids):
             booking = aggregated_data['total_on_booking'] or 0
             user_steps = aggregated_data['total_steps'] or 0
 
-            total_steps_all_users += user_steps
-
             user_info = FosUserUser.objects.values(
                 'id', 'username', 'email', 'firstname', 'lastname', 'profile_picture', 'gender', 'privacy'
             ).get(id=user.id)
+
             users_info.append({
                 'user_id': user_info['id'],
                 'username': user_info['username'],
@@ -69,4 +69,5 @@ def process_relevant_challenges(challenge_ids):
         user_info['rank'] = i
 
     update_mongo_participants(users_info, total_participants)
+
     return users_info, total_participants
