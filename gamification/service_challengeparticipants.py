@@ -1,5 +1,4 @@
 from .mongomodels import ChallengeParticipant
-from operator import itemgetter
 
 
 def update_mongo_participants(users_info, total_participants):
