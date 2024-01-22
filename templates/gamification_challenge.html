@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamification Challenges</title>
+    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Gamification Challenges</h1>
+<div id="challenge-data">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for challenge in paginated_challenges %}
+            <tr>
+                <td>{{ challenge.id }}</td>
+                <td>{{ challenge.title }}</td>
+                <td>{{ challenge.type }}</td>
+                <td>{{ challenge.description }}</td>
+                <td>{{ challenge.status }}</td>
+                <td>{{ challenge.start_date }}</td>
+                <td>{{ challenge.end_date }}</td>
+            </tr>
+        {% empty %}
+            <!-- Empty table message -->
+            <tr>
+                <td colspan="7">No challenges found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    {% if paginated_challenges.has_other_pages %}
+        <div class="pagination">
+                <span class="step-links">
+                    {% if paginated_challenges.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <a href="?page={{ paginated_challenges.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ paginated_challenges.number }} of {{ paginated_challenges.paginator.num_pages }}.
+                    </span>
+                    {% if paginated_challenges.has_next %}
+                        <a href="?page={{ paginated_challenges.next_page_number }}">Next</a>
+                        <a href="?page={{ paginated_challenges.paginator.num_pages }}">Last &raquo;</a>
+                    {% endif %}
+                </span>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

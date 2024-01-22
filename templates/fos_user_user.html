@@ -1,0 +1,66 @@
+{% load static %}
+
+<head>
+    <title>FosUserUser Data</title>
+    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>FosUserUser Data</h1>
+    <div id="user-data">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Biography</th>
+                    <th>Phone</th>
+                    <th>Facebook</th>
+                    <th>Twitter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in fos_user_users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.biography }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.facebook_name }}</td>
+                        <td>{{ user.twitter_name }}</td>
+                    </tr>
+                {% empty %}
+                    <!-- Empty table message -->
+                    <tr>
+                        <td colspan="9">No users found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        {% if fos_user_users.has_other_pages %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if fos_user_users.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <a href="?page={{ fos_user_users.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ fos_user_users.number }} of {{ fos_user_users.paginator.num_pages }}.
+                    </span>
+                    {% if fos_user_users.has_next %}
+                        <a href="?page={{ fos_user_users.next_page_number }}">Next</a>
+                        <a href="?page={{ fos_user_users.paginator.num_pages }}">Last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    </div>
+</body>
+
